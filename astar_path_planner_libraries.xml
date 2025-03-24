@@ -1,0 +1,9 @@
+    <library path="astar_path_planner">
+        <class name = "astar_path_planner/AStarPathPlannerPlugin"
+        type="astar_path_planner::AStarPathPlannerPlugin" base_class_type="nav2_core::GlobalPlanner">
+            <description>
+                A* Path Planner plugin for nav2
+            </description>
+        </class>
+    </library>
+
