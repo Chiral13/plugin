@@ -1,6 +1,6 @@
 # Kinodynamic A* Global Planner for TurtleBot3 (ROS2 Humble)
 
-A custom Nav2 global planner plugin implementing kinodynamic A* algorithm for TurtleBot3 navigation in Gazebo simulations.
+A custom Nav2 global planner plugin implementing kinodynamic A* algorithm with B-spline path smoothing for TurtleBot3 navigation in Gazebo simulations.
 
 ## Prerequisites
 - ROS 2 Humble ([installation instructions](https://docs.ros.org/en/humble/Installation.html))
