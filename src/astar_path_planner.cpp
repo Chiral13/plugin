@@ -55,7 +55,7 @@ std::vector<Point> AStarPathPlanner::Plan(const Point & start, const Point & goa
 
     // Clear previous search data
     expanded_.clear();
-    frontier_ = FrontierQueue{};
+    frontier_ = Fqueue{};
     goal_ = goal;
     
     // Initial heading (towards goal)
@@ -114,7 +114,7 @@ std::vector<Point> AStarPathPlanner::Plan(const Point & start, const Point & goa
     ExpandedStateSet expanded_states;
     
     // Initialize frontier with start state
-    heading_frontier.push({{start}, {initial_heading}, GetHeuristicCost(start)});
+    heading_frontier.push({{start}, {initial_heading}, HeuristicCost(start)});
     
     while (!heading_frontier.empty()) {
         // Get next state to expand
@@ -141,7 +141,7 @@ std::vector<Point> AStarPathPlanner::Plan(const Point & start, const Point & goa
         expanded_.insert(last_state);  // For visualization
         
         // Check if we've found our goal
-        if (IsGoal(last_state)) {
+        if (GoalCheck(last_state)) {
             return path;
         }
         
@@ -172,7 +172,7 @@ std::vector<Point> AStarPathPlanner::Plan(const Point & start, const Point & goa
             
             // Calculate new cost with kinodynamic constraints
             const auto step_cost = GetKinodynamicCost(last_state, neighbor, last_heading);
-            const auto heuristic_diff = GetHeuristicCost(neighbor) - GetHeuristicCost(last_state);
+            const auto heuristic_diff = HeuristicCost(neighbor) - HeuristicCost(last_state);
             const auto new_cost = cost + step_cost + heuristic_diff;
             
             // Add to frontier
@@ -367,8 +367,8 @@ void AStarPathPlanner::ExtendPathAndAddToFrontier(
   
   std::vector<Point> new_path(path);
   new_path.push_back(next_point);
-  const auto new_cost = path_cost - GetHeuristicCost(path.back()) +
-    GetStepCost(path.back(), next_point) + GetHeuristicCost(next_point);
+  const auto new_cost = path_cost - HeuristicCost(path.back()) +
+    StepCost(path.back(), next_point) + HeuristicCost(next_point);
   frontier_.push({new_path, new_cost});
   
 }
@@ -394,21 +394,21 @@ std::vector<Point> AStarPathPlanner::GetAdjacentPoints(const Point & point)
 }
 
 
-double AStarPathPlanner::GetHeuristicCost(const Point & point)
+double AStarPathPlanner::HeuristicCost(const Point & point)
 {
   
   return (point - goal_).norm();
   
 }
 
-double AStarPathPlanner::GetStepCost(const Point & point, const Point & next)
+double AStarPathPlanner::StepCost(const Point & point, const Point & next)
 {
   
   return (next - point).norm();
   
 }
 
-bool AStarPathPlanner::IsGoal(const Point & point)
+bool AStarPathPlanner::GoalCheck(const Point & point)
 {
   
   return (point - goal_).norm() < goal_threshold_;

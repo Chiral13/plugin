@@ -21,7 +21,7 @@ public:
     node_ = node;
     auto node_shared = node_.lock();
     if (!node_shared) {
-      throw std::runtime_error{"Could not acquire node."};
+      throw std::runtime_error{"Node not aquired."};
     }
     global_frame_ = costmap_ros->getGlobalFrameID();
     costmap_ros_ = costmap_ros;
@@ -46,7 +46,7 @@ public:
   {
     auto node_shared = node_.lock();
     if (!node_shared) {
-      throw std::runtime_error{"Could not acquire node."};
+      throw std::runtime_error{"Node not acquired."};
     }
 
     nav_msgs::msg::Path path;
@@ -56,7 +56,7 @@ public:
     if (start.header.frame_id != global_frame_) {
       RCLCPP_ERROR(
         node_shared->get_logger(),
-        "Planner will only accept start position from %s frame. Got %s instead.",
+        "Start position should be from %s frame. Got %s instead.",
         global_frame_.c_str(), start.header.frame_id.c_str());
       return path;
     }
@@ -64,7 +64,7 @@ public:
     if (goal.header.frame_id != global_frame_) {
       RCLCPP_INFO(
         node_shared->get_logger(),
-        "Planner will only accept goal position from %s frame. Got %s instead.",
+        "Goal position should be from %s frame. Got %s instead.",
         global_frame_.c_str(), goal.header.frame_id.c_str());
       return path;
     }
@@ -87,7 +87,7 @@ public:
     PublishExpandedViz(planner.GetExpandedSet());
 
     if (point_path.empty()) {
-      RCLCPP_ERROR(node_shared->get_logger(), "Could not find path!");
+      RCLCPP_ERROR(node_shared->get_logger(), "No path found!");
       return path;
     }
 
