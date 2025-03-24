@@ -17,7 +17,7 @@ class AStarPathPlanner
 public:
   using Fqueue = std::priority_queue<FrontierEntry, std::vector<FrontierEntry>,
       FrontierEntryComparator>;
-  using ESet = std::unordered_set<Point, PointHash, PointEqualityComparator>;
+  using ESet = std::unordered_set<Point, PointHash, IsPointEqual>;
 
   static void DeclareParameters(rclcpp_lifecycle::LifecycleNode::SharedPtr node);
 
@@ -73,6 +73,6 @@ private:
   bool IsTrajectoryFeasible(const Point& from, const Point& to, double heading);
 };;
 
-}  // namespace astar_path_planner
+}  
 
-#endif  // ASTAR_PATH_PLANNER_HPP_
+#endif  

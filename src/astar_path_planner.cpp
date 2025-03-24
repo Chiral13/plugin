@@ -1,5 +1,3 @@
-
-
 #include "astar_path_planner.hpp"
 #include <memory>
 #include <set>

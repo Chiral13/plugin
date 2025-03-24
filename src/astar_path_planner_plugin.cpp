@@ -122,7 +122,7 @@ private:
     expanded_viz_pub_;
 
 
-  void PublishExpandedViz(const AStarPathPlanner::ExpandedSet & expanded)
+  void PublishExpandedViz(const AStarPathPlanner::ESet & expanded)
   {
     auto node_shared = node_.lock();
     if (!node_shared) {
@@ -159,6 +159,6 @@ private:
   }
 };
 
-}  // namespace astar_path_planner
+}  
 
 PLUGINLIB_EXPORT_CLASS(astar_path_planner::AStarPathPlannerPlugin, nav2_core::GlobalPlanner)

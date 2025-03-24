@@ -5,7 +5,7 @@
 namespace astar_path_planner
 {
 
-bool PointEqualityComparator::operator()(const Point & left, const Point & right) const
+bool IsPointEqual::operator()(const Point & left, const Point & right) const
 {
   return left.isApprox(right);
 }
@@ -47,4 +47,4 @@ std::vector<nav2_costmap_2d::MapLocation> PolygonForCircle(
   return polygon;
 }
 
-}  // namespace astar_path_planner
+}  

@@ -10,7 +10,7 @@ namespace astar_path_planner
 
 using Point = Eigen::Vector2d;
 
-struct PointEqualityComparator
+struct IsPointEqual
 {
   bool operator()(const Point & left, const Point & right) const;
 };
@@ -37,6 +37,6 @@ std::vector<nav2_costmap_2d::MapLocation> PolygonForCircle(
   const double & radius,
   const std::size_t & resolution = 20);
 
-}  // namespace astar_path_planner
+}  
 
-#endif  // UTILS_HPP_
+#endif 
