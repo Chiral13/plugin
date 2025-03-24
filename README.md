@@ -18,7 +18,10 @@ A custom Nav2 global planner plugin implementing kinodynamic A* algorithm for Tu
 ## Usage
 1. Launch simulation environment: ros2 launch nav2_bringup tb3_simulation_launch.py params_file:=/path/to/your_params.yaml
 - Use argument **headless:=False** to start gazebo simulation
-- A sample parameter file is given in the repository 
+- A sample parameter file is given in the repository
+2. Give a 2D Pose Estimate
+3. Give a Nav2Goal
+  
 
 
 ## Troubleshooting
