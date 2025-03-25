@@ -185,7 +185,7 @@ std::vector<Point> AStarPathPlanner::Plan(const Point & start, const Point & goa
 std::vector<Point> AStarPathPlanner::SmoothPath(const std::vector<Point>& path)
 {
     if (path.size() <= 2) {
-        return path;  // No need to smooth paths with 2 or fewer points
+        return path;  // No need to smoth paths with 2 or fewer points
     }
     
     std::vector<Point> smoothed_path;
@@ -204,7 +204,7 @@ std::vector<Point> AStarPathPlanner::SmoothPath(const std::vector<Point>& path)
             }
         }
         
-        // If we don't have enough control points, skip this point
+        // If we don't have enough control points, we will skip this point
         if (control_points.size() < 3) {
             continue;
         }
@@ -250,7 +250,7 @@ std::vector<Point> AStarPathPlanner::SmoothPath(const std::vector<Point>& path)
         }
     }
     
-    // Add the goal point
+    // Adding the goal point
     smoothed_path.push_back(path.back());
     
     return smoothed_path;
@@ -269,34 +269,33 @@ std::vector<Point> AStarPathPlanner::GenerateMotionPrimitives(const Point& curre
     primitives.push_back(current + Point{grid_size_ * cos(current_heading), 
                                          grid_size_ * sin(current_heading)});
     
-    // Generate turning primitives (left and right)
+    // Generate turning primitives (l and r)
     const double angle_step = grid_size_ / min_radius;
     
-    // Right turn
+    // Rt
     primitives.push_back(current + Point{min_radius * sin(angle_step) * cos(current_heading - M_PI/2),
                                          min_radius * sin(angle_step) * sin(current_heading - M_PI/2)});
     
-    // Left turn
+    // Lt
     primitives.push_back(current + Point{min_radius * sin(angle_step) * cos(current_heading + M_PI/2),
                                          min_radius * sin(angle_step) * sin(current_heading + M_PI/2)});
     
-    // Add more primitives with different turning radii for smoother paths
     double medium_radius = min_radius * 1.5;
     double large_radius = min_radius * 2.0;
     
-    // Medium right turn
+    // Medium rt
     primitives.push_back(current + Point{medium_radius * sin(angle_step) * cos(current_heading - M_PI/2),
                                          medium_radius * sin(angle_step) * sin(current_heading - M_PI/2)});
     
-    // Medium left turn
+    // Medium lt
     primitives.push_back(current + Point{medium_radius * sin(angle_step) * cos(current_heading + M_PI/2),
                                          medium_radius * sin(angle_step) * sin(current_heading + M_PI/2)});
     
-    // Large right turn
+    // Large rt
     primitives.push_back(current + Point{large_radius * sin(angle_step) * cos(current_heading - M_PI/2),
                                          large_radius * sin(angle_step) * sin(current_heading - M_PI/2)});
     
-    // Large left turn
+    // Large lt
     primitives.push_back(current + Point{large_radius * sin(angle_step) * cos(current_heading + M_PI/2),
                                          large_radius * sin(angle_step) * sin(current_heading + M_PI/2)});
     
@@ -356,7 +355,7 @@ bool AStarPathPlanner::IsTrajectoryFeasible(const Point& from, const Point& to, 
     return true;
 }
 
-
+// For vanilla astar
 
 void AStarPathPlanner::ExtendPathAndAddToFrontier(
   const std::vector<Point> & path, const double & path_cost,
@@ -426,7 +425,6 @@ bool AStarPathPlanner::IsPointInCollision(const Point & point)
       if (cell.x < 0 || cell.y < 0 || cell.x >= costmap->getSizeInCellsX() ||
         cell.y >= costmap->getSizeInCellsY())
       {
-        // out of bounds cells are assumed to be empty
         return false;
       }
       const auto cost = costmap->getCost(cell.x, cell.y);
@@ -436,4 +434,4 @@ bool AStarPathPlanner::IsPointInCollision(const Point & point)
   return std::any_of(map_cells.begin(), map_cells.end(), is_cell_lethal);
 }
 
-}  // namespace astar_path_planner
+}  
