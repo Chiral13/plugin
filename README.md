@@ -29,7 +29,7 @@ A custom Nav2 global planner plugin implementing kinodynamic A* algorithm with B
 - **Simulation not starting**: Before using the package flollow steps given at ([getting started](https://docs.nav2.org/getting_started/index.html))
   
 ## Known Issues
-- currently the panning algorithm is to susceptible to initial pose estimate.
+- currently the panning algorithm is too sensitive to initial pose estimate.
 - aborts on longer path plans.
    
 
